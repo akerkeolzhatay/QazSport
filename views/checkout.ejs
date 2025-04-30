@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оформление заказа</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-dark-5@1.1.3/dist/css/bootstrap-dark.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="text-center mt-4">Оформление заказа</h1>
+        <form id="checkout-form" class="mt-4">
+            <div class="mb-3">
+                <label for="cardNumber" class="form-label">Номер карты</label>
+                <input type="text" class="form-control" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19"
+                    required>
+                <div class="invalid-feedback">Пожалуйста, введите правильный номер карты</div>
+            </div>
+            <div class="mb-3">
+                <label for="expiryDate" class="form-label">Срок действия</label>
+                <input type="text" class="form-control" id="expiryDate" placeholder="MM/YY" maxlength="5" required>
+                <div class="invalid-feedback">Пожалуйста, введите правильную дату (MM/YY)</div>
+            </div>
+            <div class="mb-3">
+                <label for="cvv" class="form-label">CVV</label>
+                <input type="text" class="form-control" id="cvv" placeholder="123" maxlength="4" required>
+                <div class="invalid-feedback">CVV должен содержать 3 или 4 цифры</div>
+            </div>
+            <button type="submit" class="btn btn-success w-100">Оплатить</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('cardNumber').addEventListener('input', function (e) {
+            let value = e.target.value.replace(/\D/g, '').substring(0, 16);
+            value = value.match(/.{1,4}/g)?.join(' ') || value;
+            e.target.value = value;
+        });
+
+        document.getElementById('expiryDate').addEventListener('input', function (e) {
+            let value = e.target.value.replace(/\D/g, '').substring(0, 4);
+            if (value.length > 2) value = value.substring(0, 2) + '/' + value.substring(2);
+            e.target.value = value;
+        });
+
+        document.getElementById('cvv').addEventListener('input', function (e) {
+            e.target.value = e.target.value.replace(/\D/g, '').substring(0, 4);
+        });
+
+        document.getElementById('checkout-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const cardNumber = document.getElementById('cardNumber');
+            const expiryDate = document.getElementById('expiryDate');
+            const cvv = document.getElementById('cvv');
+
+            const cardRegex = /^\d{4} \d{4} \d{4} \d{4}$/;
+            const expiryRegex = /^(0[1-9]|1[0-2])\/\d{2}$/;
+            const cvvRegex = /^\d{3,4}$/;
+
+            let isValid = true;
+
+            if (!cardRegex.test(cardNumber.value)) {
+                cardNumber.classList.add("is-invalid");
+                isValid = false;
+            } else {
+                cardNumber.classList.remove("is-invalid");
+            }
+
+            if (!expiryRegex.test(expiryDate.value)) {
+                expiryDate.classList.add("is-invalid");
+                isValid = false;
+            } else {
+                expiryDate.classList.remove("is-invalid");
+            }
+
+            if (!cvvRegex.test(cvv.value)) {
+                cvv.classList.add("is-invalid");
+                isValid = false;
+            } else {
+                cvv.classList.remove("is-invalid");
+            }
+
+            if (!isValid) return;
+
+            try {
+                const response = await fetch('/api/v1/cart/checkout', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ isPaid: true })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    alert('Заказ успешно оформлен!');
+                    window.location.href = '/orders';
+                } else {
+                    alert('Ошибка при оформлении заказа: ' + data.message);
+                }
+            } catch (error) {
+                console.error("Ошибка при оформлении заказа:", error);
+                alert("Не удалось разместить заказ. Попробуйте еще раз позже.");
+            }
+
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

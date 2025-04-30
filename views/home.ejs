@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QazSports</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-dark-5@1.1.3/dist/css/bootstrap-dark.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1a1a1a, #2b2b2b);
+            color: #ffffff;
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+        }
+
+        .card {
+            border-radius: 15px;
+            overflow: hidden;
+            background: #1e1e1e;
+            color: #fff;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0px 4px 15px rgba(254, 111, 103, 0.5);
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 6px 20px rgba(254, 111, 103, 0.5);
+        }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 2px solid rgba(254, 111, 103, 0.5);
+        }
+
+        .card h2 {
+            font-size: 22px;
+            text-align: center;
+            color: rgba(254, 111, 103, 0.5);
+        }
+
+        .card p {
+            font-size: 16px;
+            text-align: center;
+            color: #bbb;
+        }
+
+        .card select {
+            display: block;
+            width: 90%;
+            margin: 10px auto;
+            padding: 8px;
+            border-radius: 5px;
+            background-color: #292929;
+            color: #fff;
+            border: 1px solid #555;
+            text-align: center;
+        }
+
+        .card button {
+            display: block;
+            width: 90%;
+            margin: 10px auto;
+            padding: 10px;
+            border: none;
+            background: linear-gradient(135deg, rgba(254, 111, 103, 0.5), rgba(235, 137, 132, 0.5));
+            color: white;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .card button:hover {
+            background: linear-gradient(135deg, rgba(254, 111, 103, 0.5), rgba(235, 137, 132, 0.5));
+            transform: scale(1.05);
+        }
+
+        .title { 
+            text-decoration: none;
+            text-align: center;
+            font-size: 36px;
+            color: rgba(254, 111, 103, 0.5);
+            margin-top: 20px;
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500;700&display=swap');
+
+:root{
+    --main-color: #D2B48C;
+    --black: #13131a;
+    --bg: #FAEBD7;
+    --border: .1rem solid rgba(189, 161, 92, 0.384);;
+}
+
+*{
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    text-transform: none;
+    transition: .2s linear;
+}
+
+html{
+    font-size: 62.5%;
+    overflow-x: hidden;
+    scroll-padding-top: 9rem;
+    scroll-behavior: smooth;
+}
+
+html::-webkit-scrollbar{
+    width: .8rem;
+}
+
+html::-webkit-scrollbar-track{
+    background: transparent;
+}
+
+html::-webkit-scrollbar-thumb{
+    background: #fff;
+    border-radius: 5rem;
+}
+
+body{
+    background: var(--bg);
+}
+
+section{
+    padding: 2rem 7%;
+}
+
+.heading{
+    text-align: center;
+    color: var(--black);
+    text-transform: uppercase;
+    font-size: 4rem;
+}
+
+.heading span{
+    color: var(--main-color);
+    text-transform: uppercase;
+}
+
+.header{
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 7%;
+    border-bottom: var(--border);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.logo img{
+    width: 80px;
+    height: 80px;
+}
+
+.header .navbar a{
+    text-decoration: none;
+    margin: 0.1rem;
+    font-size: 1.6rem;
+    color: #000;
+    padding: 15px;
+}
+
+.header .navbar a:hover{
+    color: var(--main-color);
+    border-bottom: .1rem solid var(--main-color);
+    padding-bottom: .5rem;
+}
+
+.header .icons div{
+    color: #000;
+    cursor: pointer;
+    font-size: 2.5rem;
+    margin-left: 2rem;
+}
+
+.header .icons div:hover{
+    color: var(--main-color);
+}
+
+#menu-btn{
+    display: none;
+}
+
+.header .search-form{
+    position: absolute;
+    top: 115%;
+    background: #fff;
+    width: 50rem;
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    transform: scaleY(0);
+    transform-origin: top;
+}
+
+.header .search-form.active{
+    transform: scaleY(1);
+}
+
+.header .search-form input{
+    height: 100%;
+    width: 100%;
+    font-size: 1.6rem;
+    color: var(--black);
+    padding: 1rem;
+    text-transform: none;
+}
+
+.header .search-form label{
+    cursor: pointer;
+    font-size: 2.2rem;
+    margin-right: 1.5rem;
+    color: var(--black);
+}
+
+.header .search-form label:hover{
+    color: var(--main-color);
+}
+
+.header .cart-items-container {
+    position: absolute;
+    top: 100%;
+    right: -100%;
+    height: calc(100vh - 9.5rem);
+    width: 35rem;
+    background: #fff;
+    padding: 0 1.5rem;
+    overflow-y: auto; 
+}
+
+.header .cart-items-container.active{
+    right: 0;
+}
+
+.header .cart-items-container .cart-item {
+    position: relative;
+    margin: 2rem 0;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.header .cart-items-container .cart-item .fa-times {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 2rem;
+    cursor: pointer;
+    color: var(--black);
+}
+
+.header .cart-items-container .cart-item .fa-times:hover {
+    color: var(--main-color);
+}
+
+.header .cart-items-container .cart-item img {
+    height: 7rem;
+    width: auto;
+}
+
+.header .cart-items-container .cart-item .content h3 {
+    font-size: 2rem;
+    color: var(--black);
+    padding-bottom: .5rem;
+}
+
+.header .cart-items-container .cart-item .content .price {
+    font-size: 1.5rem;
+    color: var(--main-color);
+}
+
+.btn{
+    margin-top: 1rem;
+    display: inline-block;
+    padding: .9rem 3rem;
+    font-size: 1.7rem;
+    color: var(--black);
+    background: var(--main-color);
+    cursor: pointer;
+}
+
+.btn:hover{
+    letter-spacing: .2rem;
+}
+
+.header .cart-items-container .btn{
+    width: 100%;
+    text-align: center;
+}
+
+.home{
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background: url(../images/home-img.png) no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.home .content{
+    max-width: 60rem;
+}
+
+.home .content h3{
+    font-size: 6rem;
+    text-transform: uppercase;
+    color: var(--black);
+}
+
+.home .content p{
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 1.8;
+    padding: 1rem 0;
+    color: var(--black);
+}
+
+.about .row{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.about .row .image{
+    flex: 1 1 45rem;
+}
+
+.about .row .image img{
+    width: 100%;
+}
+
+.about .row .content{
+    flex: 1 1 45rem;
+    padding: 2rem;
+}
+
+.about .row .content h3{
+    font-size: 3rem;
+    color: var(--black);
+}
+
+.about .row .content p{
+    padding: 1rem 0;
+    font-size: 1.6rem;
+    color: var(--black);
+    line-height: 1.8;
+}
+
+.menu .box-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+    gap: 1.5rem;
+}
+
+.menu .box-container .box{
+    padding: 5rem;
+    text-align: center;
+    border: var(--border);
+}
+
+.menu .box-container .box:hover{
+    background: #f7e2c3;
+}
+
+.menu .box-container .box:hover > *:not(.btn){
+    background: #f7e2c3;
+}
+
+.menu .box-container .box img{
+    height: 10rem;
+}
+
+.menu .box-container .box h3{
+    color: var(--black);
+    font-size: 2rem;
+    padding: 1rem 0;
+}
+
+.menu .box-container .box .price{
+    color: var(--black);
+    font-size: 2.5rem;
+    padding: .5rem 0;
+}
+
+.menu .box-container .box .price span{
+    color: var(--black);
+    font-size: 1.5rem;
+    text-decoration: line-through;
+}
+
+.products .box-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+    gap: 1.5rem;
+}
+
+.products .box-container .box{
+    text-align: center;
+    border: var(--border);
+    padding: 2rem;
+}
+
+.products .box-container .box .icons a{
+    height: 5rem;
+    width: 5rem;
+    line-height: 5rem;
+    font-size: 2rem;
+    border: var(--border);
+    color: var(--black);
+    margin: .3rem;
+}
+
+.products .box-container .box .icons a:hover{
+    color: var(--main-color);
+}
+
+.products .box-container .box .image{
+    padding: 2.5rem 0;
+}
+
+.products .box-container .box .image img{
+    height: 25rem;
+}
+
+.products .box-container .box .content{
+    color: var(--black);
+    font-size: 2.5rem;
+}
+
+.products .box-container .box .content .stars{
+    color: var(--black);
+    font-size: 1.7rem;
+    
+}
+
+.products .box-container .box .content .price{
+    color: var(--black);
+    font-size: 2.5rem;
+    padding: 5rem 0;
+}
+
+.products .box-container .box .price span{
+    color: var(--black);
+    font-size: 1.5rem;
+    text-decoration: line-through;
+}
+
+.review .box-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+    gap: 1.5rem;
+}
+
+.review .box-container .box{
+    border: var(--border);
+    text-align: center;
+    padding: 3rem 2rem;
+}
+
+.review .box-container .box p{
+    font-size: 1.6rem;
+    line-height: 1.8;
+    color: var(--black);
+    padding: 2rem 0;
+}
+
+.review .box-container .box .user{
+    height: 10rem;
+    width: 10rem;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.review .box-container .box h3{
+    padding: 1rem 0;
+    font-size: 2rem;
+    color: var(--black);
+}
+
+.review .box-container .box .stars i{
+    font-size: 1.5rem;
+    color: var(--black);
+}
+
+.contact .row{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.contact .row .map{
+    flex: 1 1 45rem;
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+}
+
+.contact .row form{
+    flex: 1 1 45rem;
+    padding: 5rem 2rem;
+    text-align: center;
+    background: #fae7cd;
+}
+
+.contact .row form h3{
+    text-transform: uppercase;
+    font-size: 3.5rem;
+    color: var(--black);
+}
+
+.contact .row form .inputBox{
+    display: flex;
+    align-items: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    background: var(--bg);
+    border: var(--border);
+}
+
+.contact .row form .inputBox span{
+    color: var(--black);
+    font-size: 2rem;
+    padding-left: 2rem;
+}
+
+.contact .row form .inputBox input{
+    width: 100%;
+    padding: 2rem;
+    font-size: 1.7rem;
+    color: var(--black);
+    text-transform: none;
+    background: none;
+}
+
+.blogs .box-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+    gap: 1.5rem;
+}
+
+.blogs .box-container .box{
+    border: var(--border);
+}
+
+.blogs .box-container .box .image{
+    height: 25rem;
+    overflow: hidden;
+    width: 100%;
+}
+
+.blogs .box-container .box .image img{
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+}
+
+.blogs .box-container .box:hover .image img{
+    transform: scale(1.2);
+}
+
+.blogs .box-container .box .content{
+    padding: 2rem;
+}
+
+.blogs .box-container .box .content .title{
+    font-size: 2.5rem;
+    line-height: 1.5;
+    color: var(--black);
+}
+
+.blogs .box-container .box .content .title:hover{
+    color: var(--main-color);
+}
+
+.blogs .box-container .box .content span{
+    color: var(--main-color);
+    display: block;
+    padding-top: 1rem;
+    font-size: 2rem;
+}
+
+.blogs .box-container .box .content p{
+    font-size: 1.6rem;
+    line-height: 1.8;
+    color: var(--black);
+    padding: 1rem 0;
+}
+
+.footer{
+    text-align: center;
+    background: #FFF5EE;
+}
+
+.footer .share{
+    padding: 1rem 0;
+}
+
+.footer .share a{
+    
+    height: 5rem;
+    width: 5rem;
+    line-height: 5rem;
+    font-size: 2rem;
+    color: var(--black);
+    border: var(--border);
+    margin: .3rem;
+    border-radius: 50%;
+}
+
+.footer .share a:hover{
+    background-color: var(--main-color);
+}
+
+.footer .links{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 2rem 0;
+    gap: 1rem;
+}
+
+.footer .links a{
+    text-decoration: none;
+    padding: .7rem 2rem;
+    color: var(--black);
+    border: var(--border);
+    font-size: 2rem;
+}
+
+.footer .links a:hover{
+    background: var(--main-color);
+}
+
+.footer .credit{
+    font-size: 2rem;
+    color: var(--black);
+    font-weight: 300;
+    padding: 1.5rem;
+}
+
+.footer .credit span{
+    color: var(--main-color);
+    font-weight: 400;
+}
+
+@media (max-width:991px){
+    html{
+        font-size: 55%;
+    }
+
+    .header{
+        padding: 1.5rem 2rem;
+    }
+
+    section{
+        padding: 2rem 7%;
+    }
+}
+
+@media (max-width:768px){
+    #menu-btn{
+        display: inline-block;
+    }
+
+    .header .navbar{
+        position: absolute;
+        top: 100%;
+        right: -100%;
+        background: #fff;
+        width: 30rem;
+        height: calc(100vh - 9.5rem);
+    }
+
+    .header .navbar.active{
+        right: 0;
+    }
+
+    .header .navbar a{
+        color: var(--black);
+        display: block;
+        margin: 1.5rem;
+        padding: .5rem;
+        font-size: 2rem;
+    }
+
+    .header .search-form{
+        width: 90%;
+        right: 2rem;
+    }
+
+    .home{
+        background-position: left;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .home .content h3{
+        font-size: 4.5rem;
+    }
+
+    .home .content p{
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width:450px){
+    html{
+        font-size: 50%;
+    }
+
+}
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <a href="/" class="logo">
+            <img src="/images/logo.png" alt="">
+        </a>
+        <nav class="navbar">
+            <a href="#home">Главная</a>
+            <a href="#about">О нас</a>
+            <a href="#menu">Товары</a>
+            <a href="#review">Отзывы</a>
+            <a href="#contact">Локация</a>
+            <a href="#blogs">Блоги</a>
+                
+        </nav>
+        <ul class="navbar-nav ms-auto">
+            <% if (typeof user !== "undefined" && user) { %>
+                <li class="nav-item">
+                    <a href="/profile" class="nav-link">Здравствуйте, <%= user.name %></a>
+                </li>
+                <% if (user.role === "admin") { %>
+                    <li class="nav-item">
+                        <a href="/admin/foods" class="btn btn-warning btn-nav"> ADMIN-PANEL </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/admin/orders" class="btn btn-info btn-nav">Заказы(ADMIN)</a>
+                    </li>
+                <% } else { %>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/cart">Корзина</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/orders" class="nav-link">Заказы</a>
+                    </li>
+                <% } %>
+            <% } else { %>
+                <li class="nav-item">
+                    <a href="/login" class="nav-link">Войти</a>
+                </li>
+            <% } %>
+        </ul>
+        <div class="icons">
+            <div class="fas fa-search" id="search-btn"></div>
+            <div class="fas fa-shopping-cart" id="cart-btn"></div>
+            <div class="fas fa-bars" id="menu-btn"></div>
+        </div>
+        <div class="search-form">
+            <input type="search" id="search-box" placeholder="search here...">
+            <label for="search-box" class="fas fa-search"></label>
+        </div>
+        
+    </header>
+    <%- include('navbar') %>
+
+
+        
+    <section class="home" id="home">
+        <div class="content">
+            <h3>QazSports</h3>
+            <p>Почувствуй идеальное сочетание стиля и комфорта с каждой покупкой в нашем спортивном магазине. Отобранные с заботой товары вдохновляют на движение и помогают достигать целей — каждый раз, как в первый.</p>
+        </div>
+    </section>
+
+    <section class="about" id="about">
+        <h1 class="heading">
+            <span>про</span> нас
+        </h1>
+        <div class="row">
+            <div class="image">
+                <img src="images/about.jpg" alt="">
+            </div>
+            <div class="content">
+                <h3>Что делает наш спортивный магазин особенным?</h3>
+                <p>Мы отбираем только лучшие бренды и проверенные товары, чтобы ты получала максимальное удовольствие от тренировок. Каждая покупка — это шаг к новым достижениям и уверенности в себе.</p>
+                <p>Мы гордимся качеством и вниманием к деталям. В каждом товаре — наша страсть к спорту и стремление вдохновлять тебя на движение.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="menu" id="menu">
+        <h1 class="heading"> наши <span> товары</span> </h1>
+        <select id="categoryFilter" style="margin-left: 1000px; font-size: 1.6rem; border-radius: 5px; padding: 8px;">
+            <option value="все">Все</option>
+            <option value="футболки">Футболки</option>
+            <option value="костюмы">Костюмы</option>
+            <option value="женские">Женские</option>
+            <option value="детские">Детские</option>
+            <option value="низ">Низ</option>
+            <option value="кроссовки">Кроссовки</option>
+        </select>
+        <div class="box-container">
+            <div class="row justify-content-center">
+                <% foods.forEach(food => { %>
+                    <div class="col-md-3 m-4">
+                        <div style="background-color:white; " class="card" data-category="<%= food.category.toLowerCase() %>">
+                            <img style="border-bottom:2px solid #D2B48C;" src="/images/<%= food.image %>" alt="<%= food.name %>">
+                            <h2 style="color:#D2B48C;"><%= food.name %></h2>
+                            <p><%= food.description %></p>
+    
+                            <label style="margin: 13px;" for="variant-<%= food._id %>">Select an option:</label>
+                            <select id="variant-<%= food._id %>">
+                                <% food.variants.forEach(variant => { %>
+                                    <option value="<%= variant %>">
+                                        <%= variant %> - <%= food.prices[0][variant] %>₸
+                                    </option>
+                                <% }); %>
+                            </select>
+    
+                            <button style="background: #D2B48C;" onclick="addToCart('<%= food._id %>', '<%= food.name %>', '<%= food.image %>', document.getElementById('variant-<%= food._id %>').value, <%= food.prices[0][food.variants[0]] %>)">
+                                добавить в корзину
+                            </button>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="review" id="review">
+        <h1 class="heading">отзывы <span>клиентов</span></h1>
+        <div class="box-container">
+            <div class="box">
+                <img src="images/quote.png" alt="" class="quote">
+                <p>Я просто в восторге от этого магазина! Отличный выбор, качественные товары и всё, что нужно для активной жизни. Здесь я нахожу всё для тренировок и отдыха. Однозначно рекомендую всем, кто любит спорт и заботится о себе!</p>
+                <img src="images/pic1.png" alt="" class="user">
+                <h3>Оля Сергеевна</h3>
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+            </div>
+            <div class="box">
+                <img src="images/quote.png" alt="" class="quote">
+                <p>Я просто обожаю этот магазин! Всё продумано до мелочей — стиль, удобство и отличное качество. Каждая покупка вдохновляет и мотивирует. Настоящая находка для всех, кто ценит активный образ жизни!</p>
+                <img src="images/pic2.png" alt="" class="user">
+                <h3>Алина Аланова</h3>
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+            </div>
+            <div class="box">
+                <img src="images/quote.png" alt="" class="quote">
+                <p>Я в полном восторге от этого магазина! Всё — от ассортимента до сервиса — на высшем уровне. Удобно, качественно и стильно. Теперь не представляю свои тренировки без экипировки отсюда. Обязательно стоит заглянуть всем, кто любит спорт!</p>
+                <img src="images/pic3.jpg" alt="" class="user">
+                <h3>Асет Марат</h3>
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <h1 class="heading"><span>наша </span>локация</h1>
+        <div class="row">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d164735.3177194901!2d73.00416344430342!3d49.82386556436006!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4243465ad22d0559%3A0xa90b6be0d244d433!2zMTAwMDAwINCa0LDRgNCw0LPQsNC90LTQsA!5e0!3m2!1sru!2skz!4v1745594606063!5m2!1sru!2skz" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </section>
+
+    <section class="blogs" id="blogs">
+        <h1 class="heading">наши <span>блоги</span></h1>
+        <div class="box-container">
+            <div class="box">
+                <div class="image">
+                    <img src="images/blog1.jpg" alt="">
+                </div>
+                <div class="content">
+                    <a href="#" class="title">Свежо и вдохновляюще — как и должно быть!</a>
+                    <span>by admin / 15th Nov., 2024</span>
+                    <p>Открой для себя секреты нашей спортивной коллекции. Каждая вещь создана с заботой, чтобы поддерживать тебя в движении.</p>
+                </div>
+            </div>
+            <div class="box">
+                <div class="image">
+                    <img src="images/blog2.jpg" alt="">
+                </div>
+                <div class="content">
+                    <a href="#" class="title">Идеальное сочетание со спортом</a>
+                    <span>by admin / 10th Nov., 2024</span>
+                    <p>Наш магазин — как идеальная пара к твоей активности. Экипировка, которая мотивирует, и аксессуары, которые дополняют каждый твой шаг.</p>
+                </div>
+            </div>
+            <div class="box">
+                <div class="image">
+                    <img src="images/blog3.jpg" alt="">
+                </div>
+                <div class="content">
+                    <a href="#" class="title">Искусство выбора спортивной экипировки</a>
+                    <span>by admin / 21th Oct., 2024</span>
+                    <p>От первых шагов до высоких результатов — каждое движение имеет значение. В нашем магазине ты найдёшь всё, что сделает твой спортивный путь особенным.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="footer">
+        <div class="share">
+            <a href="#" class="fab fa-facebook-f"></a>
+            <a href="#" class="fab fa-instagram"></a>
+            <a href="#" class="fab fa-twitter"></a>
+            <a href="#" class="fab fa-pinterest"></a>
+        </div>
+        <div class="links">
+            <a href="#home">Главная</a>
+            <a href="#about">О нас</a>
+            <a href="#menu">Товары</a>
+            <a href="#review">Отзывы</a>
+            <a href="#contact">Локация</a>
+            <a href="#blogs">Блоги</a>
+        </div>
+        <div class="credit">создано <span>имя</span> | университет </div>
+    </section>
+       
+    </div>
+
+    <script>
+        function addToCart(foodId, name, image, variant, price) {
+            fetch("/api/v1/cart/add", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ foodId, name, image, variant, price })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    alert("✅ Товар добавлен в корзину!");
+                } else {
+                    alert("❌ Ошибка добавления в корзину!");
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        }
+        const categoryFilter = document.getElementById('categoryFilter');
+        const cards = document.querySelectorAll('.card');
+
+        categoryFilter.addEventListener('change', () => {
+            const selectedCategory = categoryFilter.value.toLowerCase();
+            cards.forEach(card => {
+                const cardCategory = card.getAttribute('data-category');
+                if (selectedCategory === 'все' || cardCategory === selectedCategory) {
+                    card.parentElement.style.display = 'block';
+                } else {
+                    card.parentElement.style.display = 'none';
+                }
+            });
+        });
+
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

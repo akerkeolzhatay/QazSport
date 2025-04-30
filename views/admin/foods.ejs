@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Управление продуктом</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-dark-5@1.1.3/dist/css/bootstrap-dark.min.css" rel="stylesheet">
+</head>
+<body>
+    <%- include('../navbar') %>
+    <div class="container mt-5">
+        <section  class="sectionn" style="padding: 0%;">
+        <h1 style="color: black; text-align:center;">Управление продуктом</h1>
+        <table class="table table-dark table-striped">
+            <thead>
+                <tr>
+                    <th>Название продукта</th>
+                    <th>Параметры</th>
+                    <th>Цена</th>
+                    <th>Категория</th>
+                    <th>Изображение продукта</th>
+                    <th>Описание</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% foods.forEach(food => { %>
+                    <tr>
+                        <td><%= food.name %></td>
+                        <td><%= food.variants.join(', ') %></td>
+                        <td><%= JSON.stringify(food.prices) %></td>
+                        <td><%= food.category %></td>
+                        
+                        <td><img src="/images/<%= food.image %>" alt="<%= food.name %>" width="100"></td>
+                        <td><%= food.description %></td>
+                        <td>
+                            <a href="/admin/foods/<%= food._id %>/edit" class="btn btn-primary">Редактировать</a>
+                            <form action="/admin/foods/<%= food._id %>?_method=DELETE" method="POST" style="display:inline;">
+                                <button type="submit" class="btn btn-danger">Удалить</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+        <a href="/admin/foods/new" class="btn btn-success">Добавить новые продукты</a>
+    </section>
+    </div>
+
+</body>
+</html>

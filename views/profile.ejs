@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+
+        input {
+            background: #333;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+        }
+
+    </style>
+</head>
+<body>
+    
+
+    <%- include('navbar') %>
+
+
+<div class="container">
+    <section style="margin-top: 150px;" class="section">
+    <h1>👤 Профиль <%= user ? user.name : "Гость" %></h1>
+    <% if (user) { %>
+        <form action="/update" method="POST">
+            <label>Имя:</label>
+            <input type="text" name="name" value="<%= user.name %>" required>
+            <label>Email:</label>
+            <input type="email" name="email" value="<%= user.email %>" required>
+            <button class="btn btn-success w-100">Редактировать</button>
+        </form>
+
+        <form action="/api/v1/auth/logout" method="POST">
+            <button class="btn btn-secondary w-100 mt-2">Выйти</button>
+        </form>
+        
+
+        <form action="/delete" method="POST" onsubmit="return confirm('Вы уверены?')">
+            <button class="btn btn-danger w-100 mt-2">Удалить аккаунт</button>
+        </form>
+    <% } else { %>
+        <p>Вы не вошли в систему. <a href="/login">Авторизоваться</a></p>
+    <% } %>
+</div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
